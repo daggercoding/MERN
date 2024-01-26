@@ -1,17 +1,19 @@
 const express =require("express")
 const fs = require("fs")
 const cors = require("cors")
+const router = express.Router()
 
 const app = express();
 app.use(express.json())
 app.use(cors())
 
-
 let movies=JSON.parse(fs.readFileSync("./data/Movies.json", 'utf-8'))
 
+//////////////////////////////////////////////////////
+//////////// ROUTE HANDLER FUNCTION///////////////////
+//////////////////////////////////////////////////////
 
-
-app.get("/api/movies",(req,res)=>
+const getAllMovies=(req,res)=>
 {
     res.status(200).json({
         status:"sucess",
@@ -20,10 +22,10 @@ app.get("/api/movies",(req,res)=>
             movies:movies
         }
     })
-})
-//////////ROUTE PARAMETER///////////////////
-////////// /:id /:id? ///////////////////
-app.get("/api/movies/:id",(req,res)=>
+}
+
+
+const getMoviesById=(req,res)=>
 {
     // + sign is used to convert string to number
     const id = +req.params.id
@@ -41,9 +43,9 @@ app.get("/api/movies/:id",(req,res)=>
             movie
         }
     })
-})
+}
 
-app.get("/api/movies/:id/:name",(req,res)=>
+const getMoviesByIdName=(req,res)=>
 {
     // + sign is used to convert string to number
     const id = +req.params.id
@@ -62,9 +64,9 @@ app.get("/api/movies/:id/:name",(req,res)=>
             movie
         }
     })
-})
+}
 
-app.post("/api/movies",(req,res)=>
+const postMovie = (req,res)=>
 {
     let newId = movies[movies.length-1].id+1;
     let newMovie = Object.assign({id:newId},req.body)
@@ -74,9 +76,9 @@ app.post("/api/movies",(req,res)=>
         res.status(201).send("sucessfully created")
     })
 
-})
+}
 
-app.patch("/api/movies/:id",(req,res)=>
+const updateMovie =(req,res)=>
 {
     const id = +req.params.id
     const movieToEdit = movies.find((element)=>element.id===id)
@@ -103,9 +105,9 @@ app.patch("/api/movies/:id",(req,res)=>
             }
         })
     })
-})
+}
 
-app.delete("/api/movies/:id",(req,res)=>
+const deleteMovie=(req,res)=>
 {
 const id = +req.params.id
 const movieToDelete = movies.find(element=>element.id===id)
@@ -128,10 +130,24 @@ fs.writeFile("./data/Movies.json",JSON.stringify(movies),(err)=>
         }
     })
 })
-})
+}
+
+router.route("/")
+.get(getAllMovies)
+.post(postMovie)
+
+router.route("/:id")
+.get(getMoviesById)
+.patch(updateMovie)
+.delete(deleteMovie)
+
+router.route("/:id/:name")
+.get(getMoviesByIdName)
+
+app.use("/api/movies",router)
 
 
-app.listen(8000,()=>
+app.listen(4000,()=>
 {
     console.log("server is up...(:")
 })
