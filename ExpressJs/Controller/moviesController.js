@@ -1,5 +1,33 @@
 const fs = require("fs")
-let movies=JSON.parse(fs.readFileSync("./data/Movies.json", 'utf-8'))
+let movies = JSON.parse(fs.readFileSync('./data/Movies.json', 'utf-8'))
+
+
+exports.checkId =(req,res,next,value)=>
+{
+    let movie = movies.find((element)=>element.id===+value)
+    if(!movie)
+    {
+        return res.status(404).json({
+            status:"error",
+            ErrorMessage:"(: PLEASE ENTER A VALID ID :)"
+        })
+    }
+next()
+}
+
+//creatting route handler to validate movie
+exports.validateMovie=(req,res,next)=>
+{
+    if(!req.body.name || !req.body.director)
+    {
+        res.status(400).json({
+            status:"Error",
+            Message: "Please Provide Movie and Director Name"
+        })
+    }
+    next()
+
+}
 
 exports.getAllMovies=(req,res)=>
 {
@@ -17,13 +45,13 @@ exports.getMoviesById=(req,res)=>
     // + sign is used to convert string to number
     const id = +req.params.id
     let movie = movies.find((element)=>element.id===id)
-    if(!movie)
-    {
-        return res.status(404).json({
-            status:"error",
-            ErrorMessage:"(: PLEASE ENTER A VALID ID :)"
-        })
-    }
+    // if(!movie)
+    // {
+    //     return res.status(404).json({
+    //         status:"error",
+    //         ErrorMessage:"(: PLEASE ENTER A VALID ID :)"
+    //     })
+    // }
     res.status(200).json({
         status:"sucess",
         data:{
@@ -38,13 +66,13 @@ exports.getMoviesByIdName=(req,res)=>
     const id = +req.params.id
     const name =req.params.name
     let movie = movies.find((element)=>element.id===id&&element.name==name)
-    if(!movie)
-    {
-        return res.status(404).json({
-            status:"error",
-            ErrorMessage:"(: PLEASE ENTER A VALID ID :)"
-        })
-    }
+        if(!movie)
+        {
+            return res.status(404).json({
+                status:"error",
+                ErrorMessage:"(: PLEASE ENTER A VALID ID :)"
+            })
+        }
     res.status(200).json({
         status:"sucess",
         data:{
@@ -70,17 +98,16 @@ exports.updateMovie =(req,res)=>
     const id = +req.params.id
     const movieToEdit = movies.find((element)=>element.id===id)
 
-    if(!movieToEdit)
-    {
-     return res.status(404).json({
-        status:"Bad Request",
-        Message:`This id :( ${id} ) does not exist`
-     })
-    }
+    // if(!movieToEdit)
+    // {
+    //  return res.status(404).json({
+    //     status:"Bad Request",
+    //     Message:`This id :( ${id} ) does not exist`
+    //  })
+    // }
 
     const index = movies.indexOf(movieToEdit)
     Object.assign(movieToEdit,req.body)
-    
     
     movies[index] = movieToEdit
 
@@ -98,13 +125,13 @@ exports.deleteMovie=(req,res)=>
 {
 const id = +req.params.id
 const movieToDelete = movies.find(element=>element.id===id)
-if(!movieToDelete)
-{
-    res.status(404).json({
-        status:"BAD REQUEST",
-        message:`THERE IS NOT ANY MOVIE RELATED TO ID :> ${id}`
-    })
-}
+// if(!movieToDelete)
+// {
+//     res.status(404).json({
+//         status:"BAD REQUEST",
+//         message:`THERE IS NOT ANY MOVIE RELATED TO ID :> ${id}`
+//     })
+// }
 const index = movies.indexOf(movieToDelete)
 const deletedMovie =movies.splice(index,1)
 fs.writeFile("./data/Movies.json",JSON.stringify(movies),(err)=>
