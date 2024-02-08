@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hello</h1>
+    <script>
+///////////////////////////////////////////////////////////        
+/////////////     star patter   ///////////////////////////
+/////////////     star patter   ///////////////////////////
+///////////////////////////////////////////////////////////        
+        let row=5
+        for (let i=1 ; i<=row ; i++)
+        {
+            let star=""
+            for(let j=1;j<=i;j++)
+            {
+                star=star+"* "
+            }
+            let space=""
+            for(let k=row-i;k>0;k--)
+            {
+               space=space+" "   
+            }
+            console.log(space,star)
+        }
+         
+        for(let i=row-1;i>=1;i--)
+        {
+            let star = ""
+            for(let j=1;j<=i;j++)
+            {
+                star=star+"* "
+            }
+            let space=""
+            for(let k=row-i; k>0 ; k--)
+            {
+             space=space+" "
+            }
+            console.log(space,star)
+        }
+
+    
+    //////////////////////////////////////////
+    /////////PRIME NUMBER FUNCTION////////////
+    //////////////////////////////////////////        
+    function isPrime(numb)
+    {
+        if(numb<2)
+        {
+            return `${numb} :  is not a Prime Number`
+        }
+        for(let i=2;i<numb;i++)
+        {
+        if(numb%i===0)
+        {
+            return `${numb} : is not a Prime Number`
+        }  
+        }
+        return `${numb} : is a Prime Number`
+    }
+    
+    number =111
+    for(let i=1;i<=number;i++)
+    {
+    console.log(isPrime(i))
+    }
+
+    //    reverse the array
+    let numbers = [1,2,3,4,5,6,7,8,9,10]
+    let newNumbers = []
+    for(let i=numbers.length-1;i>=0;i--)
+    {
+        newNumbers.push(numbers[i])
+    }
+    console.log(newNumbers)
+
+    //Array Operations
+    let array1 = [1,2,3,4,5,6,7,8,9]
+    let name =["vishal","singh","raj"]
+    let newArray= [...array1,...name]
+    console.log(newArray)
+    newArray.pop()
+    console.log(newArray)
+    newArray.push("raj")
+    console.log(newArray)
+    newArray.unshift("mr")
+    console.log(newArray)
+    newArray.shift()
+    console.log(newArray)
+    let slicedArray=newArray.slice(1)
+    console.log(slicedArray)
+    newArray.splice(0,0,"hii","Mr")
+    console.log(newArray)
+
+    //lets play with objects
+   Object.prototype.name=()=>{
+   return "Hello how are you"
+   
+   }
+   let newObj =new Object({age:24,gender:"male"})
+   console.log(newObj.name())
+   
+
+
+   
+   
+
+ </script>
+
+    
+    
+         
+</body>
+</html>

@@ -1,13 +1,12 @@
 const express =require("express")
-const fs = require("fs")
 const cors = require("cors")
+require('dotenv').config()
 const router = require("./Routes/movieRoute")
 
 const app = express();
 app.use(express.json())
+app.use(express.static("./public"))
 app.use(cors())
-
-app.send(express.static("./public"))
 
 app.use("/API/MOVIES",router)
 

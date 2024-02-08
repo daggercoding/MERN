@@ -171,6 +171,21 @@ width: 100%;
     height: 100vh;
     text-align: center;
 }
+.project1
+{
+    position: relative;
+}
+.Image{
+    
+    position: absolute;
+    top: 16%;
+    left: 0%;
+}
+#btn
+{
+    position: absolute;
+    top: 85%;
+}
 .projectContainer
 {
     display: flex;
@@ -204,4 +219,8 @@ width: 100%;
     padding: 5px;
     text-align: start;
     font-size: 14px;
+}
+
+.activate{
+    display: none;
 }
