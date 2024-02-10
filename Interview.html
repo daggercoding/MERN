@@ -96,18 +96,61 @@
     newArray.splice(0,0,"hii","Mr")
     console.log(newArray)
 
-    //lets play with objects
-   Object.prototype.name=()=>{
-   return "Hello how are you"
-   
-   }
-   let newObj =new Object({age:24,gender:"male"})
-   console.log(newObj.name())
-   
+    
+////////////////////////////////////////////   
+/// print 1 to 10 without using any loop ///
+////////////////////////////////////////////
 
+function print(start,end){
 
+ console.log("recursive function called")
+ if(start<end)
+ {
+    console.log(`The numeber is ${start}`)
+    print(start+1,end)
+    return
+ }
+ console.log("recursive function ended")
+ return  
+}
+
+print(1,10)
+
+//////////////////////////////////////////////
+//////////FIND THE LARGEST IN ARRAY///////////
+//////////////////////////////////////////////
    
-   
+ let num = [1,2,3,4,5,6,7,8,9]
+ let max = [num[0]]
+ 
+ for(let i=0 ; i<num.length ; i++ )
+ {
+    if(max[0]<num[i])
+    {
+        max[0]=num[i]
+    }
+ }
+ console.log(max[0])
+
+ ///////////////////////////////////////////////////
+ //write a function to change the opposite symbol///
+ ///////////////////////////////////////////////////
+
+ //method 1
+ let array2 = [1,2,3,4,5,-6,-7,-8,-9]
+ let array2New = []
+ const result = array2.map(num=>-num)
+ console.log(result)
+
+ //method 2
+
+let array3New=[]
+for(let i=0 ; i<array2.length ; i++)
+{
+  array3New.push(array2[i] - array2[i]*2)
+}
+console.log(array3New)
+ 
 
  </script>
 
