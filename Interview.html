@@ -6,7 +6,64 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>hello</h1>
+    <h1 style="text-align: center;">Index</h1>
+    <style>
+        table{
+            border: 1px solid red;
+            padding: 7px;
+            background: black;
+            color: white;
+            text-align: center;
+            position: absolute;
+            margin: auto;
+            left: 33%;
+
+        }
+        th{
+            border: 1px solid cyan;
+        }
+        td{
+            border: 1px solid green;
+            padding: 5px;
+        }
+        tbody{
+            margin-top: 5px;
+        }
+    </style>
+    <table>
+        <thead>
+        <tr>
+            <th>INDEX</th>
+            <th>NAME</th>
+            <th>GMAIL</th>
+            <th>ADRESS</th>
+        </tr>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>VISHAL SINGH</td>
+            <td>reactvishal@gmail.com</td>
+            <td>mohali</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>VISHAL SINGH</td>
+            <td>reactvishal@gmail.com</td>
+            <td>mohali</td>
+        </tr><tr>
+            <td>1</td>
+            <td>VISHAL SINGH</td>
+            <td>reactvishal@gmail.com</td>
+            <td>mohali</td>
+        </tr><tr>
+            <td>1</td>
+            <td>VISHAL SINGH</td>
+            <td>reactvishal@gmail.com</td>
+            <td>mohali</td>
+        </tr>
+        </tbody>
+    </thead>
+    </table>
     <script>
 ///////////////////////////////////////////////////////////        
 /////////////     star patter   ///////////////////////////
@@ -138,6 +195,7 @@ print(1,10)
 
  //method 1
  let array2 = [1,2,3,4,5,-6,-7,-8,-9]
+
  let array2New = []
  const result = array2.map(num=>-num)
  console.log(result)
@@ -150,12 +208,14 @@ for(let i=0 ; i<array2.length ; i++)
   array3New.push(array2[i] - array2[i]*2)
 }
 console.log(array3New)
- 
 
- </script>
+//method 3
+array4New=[]
+array2.forEach((num)=>array4New.push(-num))
+console.log(array4New)
 
-    
-    
-         
+
+
+ </script>    
 </body>
 </html>
