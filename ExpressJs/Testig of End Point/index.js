@@ -232,15 +232,15 @@ getData();
 
 ////recursive function
 
-function printNumbers(start,end)
-{
-  if(start<end)
-  {
-    console.log(`the number which you want to print is ${start}`)
-    printNumbers(start+1,end)
-  }
+// function printNumbers(start,end)
+// {
+//   if(start<end)
+//   {
+//     console.log(`the number which you want to print is ${start}`)
+//     printNumbers(start+1,end)
+//   }
 
-}
-printNumbers(1,20)
+// }
+// printNumbers(1,20)
 
 

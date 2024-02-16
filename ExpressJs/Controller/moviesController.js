@@ -2,8 +2,13 @@ const Movie = require("../Models/MovieModel")
 
 exports.getAllMovies=async (req,res)=>
 {
+  //lets have a look that how we can excludwe some query strings
+  let excludedQuery = ["sort","name"]
+  let newQuery = {...req.query}
+  excludedQuery.map(el=>delete newQuery[el])
    try{
-      let movies =await Movie.find()
+//   but here we will directly pass the query object because it will automatically manage the query because we were using mongoose version 8.1.1 and it will be automatically managed if we use 7+version
+      let movies =await Movie.find(req.query)
       res.status(200).json({
         status:"sucess",
         data:{
