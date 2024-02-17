@@ -1,3 +1,4 @@
+const { json } = require("express")
 const Movie = require("../Models/MovieModel")
 
 exports.getAllMovies=async (req,res)=>
@@ -6,11 +7,30 @@ exports.getAllMovies=async (req,res)=>
   let excludedQuery = ["sort","name"]
   let newQuery = {...req.query}
   excludedQuery.map(el=>delete newQuery[el])
-   try{
-//   but here we will directly pass the query object because it will automatically manage the query because we were using mongoose version 8.1.1 and it will be automatically managed if we use 7+version
-      let movies =await Movie.find(req.query)
+
+   try {
+    
+//but here we will directly pass the query object because it will automatically manage the query because we were using mongoose version 8.1.1 and it will be automatically managed if we use 7+version
+    //   let queryString = JSON.stringify(req.query)
+    //   let querystring = queryString.replace(/\b(gte|lte|lt|gt)\b/g,(match)=>`$${match}`)
+    //   let queryObj = JSON.parse(querystring)
+   
+    let query = Movie.find()
+
+    if(req.query.sort)
+    {
+      price = query.sort(req.query.sort)
+    }
+    let movies = await Movie.find({price})
+    //THIS IS THE CHAINING METHOD WITH THE HELP OF THIS WE CAN ALSO FIND THE DATA USING QUERY STRINGS
+    //   .where("duration")
+    //   .lte(req.query.duration)
+    //   .where("price")
+    //   .lte(req.query.price)
+
       res.status(200).json({
         status:"sucess",
+        length:movies.length,
         data:{
             movies
         }

@@ -243,4 +243,27 @@ getData();
 // }
 // printNumbers(1,20)
 
+////find the second largest number in array
+
+let array =[93,12,56,87940349,93284980313,94,86845948,28328991,91,98,97]
+let largest = 0
+let secondLargest = 0
+
+for(let i=0;i<array.length;i++)
+{
+  if(largest<array[i])  // 0 93
+  {
+    secondLargest = largest
+    largest= array[i]
+  }
+  else if(secondLargest<array[i])
+  {
+    secondLargest = array[i]
+  }
+}
+console.log(largest)
+console.log(secondLargest)
+
+
+
 
