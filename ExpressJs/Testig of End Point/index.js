@@ -264,6 +264,13 @@ for(let i=0;i<array.length;i++)
 console.log(largest)
 console.log(secondLargest)
 
+////convert the first letter of eac word to capital
+let name  = "my name is vishal singh"
+let newName = name.split(" ").map(el=>el[0].toUpperCase()+el.slice(1)).join(" ")
+
+console.log(name)
+console.log(newName)
+
 
 
 
