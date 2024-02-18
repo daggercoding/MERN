@@ -1,26 +1,33 @@
-const { json } = require("express")
 const Movie = require("../Models/MovieModel")
 
 exports.getAllMovies=async (req,res)=>
 {
   //lets have a look that how we can excludwe some query strings
-  let excludedQuery = ["sort","name"]
-  let newQuery = {...req.query}
-  excludedQuery.map(el=>delete newQuery[el])
+//   let excludedQuery = ["sort","name"]
+//   let newQuery = {...req.query}
+//   excludedQuery.map(el=>delete newQuery[el])
    try{
 //   but here we will directly pass the query object because it will automatically manage the query because we were using mongoose version 8.1.1 and it will be automatically managed if we use 7+version
-    //   let queryString = JSON.stringify(req.query)
-    //   let querystring = queryString.replace(/\b(gte|lte|lt|gt)\b/g,(match)=>`$${match}`)
-    //   let queryObj = JSON.parse(querystring)
-   
-    // let query = Movie.find()
+   let queryString = JSON.stringify(req.query).toLowerCase() 
+   let querystring = queryString.replace(/\b(gte|lte|lt|gt)\b/g,(match)=>`$${match}`)
+   let queryObj = JSON.parse(querystring)
+   console.log(queryObj)
+   let query = Movie.find(queryObj)
+      // console.log({query})
+    ////logic for sorting  
+    // let movies = await Movie.find({duration: {$gte: 117}}).sort('price duration').exec()
+    if(req.query.sort)
+    {
+     const sortStr = req.query.sort.toLowerCase().split(",").join(" ")
+     console.log(sortStr)
+     query = query.sort(sortStr).exec()
+    }
+    else{
+    query = query.sort("createdAt")
+    }
 
-    // if(req.query.sort)
-    // {
-    //  let price = query.sort(req.query.sort)
-    // }
-
-    let movies = await Movie.find()
+     let movies = await query
+    //  console.log(movies)
     //THIS IS THE CHAINING METHOD WITH THE HELP OF THIS WE CAN ALSO FIND THE DATA USING QUERY STRINGS
     //   .where("duration")
     //   .lte(req.query.duration)
@@ -42,7 +49,6 @@ exports.getAllMovies=async (req,res)=>
     message:err.message
    })
    }
-    
 }
 
 exports.getMoviesById=async(req,res)=>
