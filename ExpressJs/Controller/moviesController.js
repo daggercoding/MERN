@@ -3,29 +3,44 @@ const Movie = require("../Models/MovieModel")
 exports.getAllMovies=async (req,res)=>
 {
   //lets have a look that how we can excludwe some query strings
-//   let excludedQuery = ["sort","name"]
-//   let newQuery = {...req.query}
-//   excludedQuery.map(el=>delete newQuery[el])
+  // let excludedQuery = ["sort"]
+  // let newQuery = {...req.query}
+  // let newQuer=excludedQuery.map(el=>delete newQuery[el])
    try{
 //   but here we will directly pass the query object because it will automatically manage the query because we were using mongoose version 8.1.1 and it will be automatically managed if we use 7+version
    let queryString = JSON.stringify(req.query).toLowerCase() 
    let querystring = queryString.replace(/\b(gte|lte|lt|gt)\b/g,(match)=>`$${match}`)
    let queryObj = JSON.parse(querystring)
-   console.log(queryObj)
-   let query = Movie.find(queryObj)
-      // console.log({query})
+   
+   let query = Movie.find()
     ////logic for sorting  
     // let movies = await Movie.find({duration: {$gte: 117}}).sort('price duration').exec()
     if(req.query.sort)
     {
      const sortStr = req.query.sort.toLowerCase().split(",").join(" ")
-     console.log(sortStr)
+    //  console.log(sortStr)
      query = query.sort(sortStr).exec()
     }
     else{
     query = query.sort("createdAt")
     }
 
+    ////limiting fields
+    if(req.query.fields)
+    {
+      console.log(req.query.fields)
+      const limitStr = req.query.fields.split(",").join(" ")
+      query = query.select(limitStr)
+    }else{
+      query = query.select("-__v")
+    }
+    ////implimenting pagination
+     const page = req.query.page
+     const limit = req.query.limit
+     const skip = (page-1)*limit
+     query = query.skip(skip).limit(limit)
+     
+     
      let movies = await query
     //  console.log(movies)
     //THIS IS THE CHAINING METHOD WITH THE HELP OF THIS WE CAN ALSO FIND THE DATA USING QUERY STRINGS
