@@ -2,6 +2,7 @@ const express =require("express")
 const movieController = require("../Controller/moviesController")
 const router = express.Router()
 
+router.route("/topRated").get(movieController.topRated,movieController.getAllMovies)
 
 router.route("/")
 .get(movieController.getAllMovies)
