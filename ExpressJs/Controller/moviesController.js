@@ -1,15 +1,15 @@
 const Movie = require("../Models/MovieModel")
 
 exports.topRated = (req,res,next)=>{
-
-  req.query.limit=5
-  req.query.sort = price
-  console.log(req.query.limit)  
-  console.log(req.query.sort)
+  req.query.limit="5",
+  req.query.sort="-price"
+  console.log("i am working first")
+  next()
 }
 
 exports.getAllMovies=async(req,res)=>
 {
+  console.log("i am working second")
   //lets have a look that how we can excludwe some query strings
   let excludedQuery = ["sort","fields","page","limit"]
   let newQuery = {...req.query}
@@ -43,7 +43,7 @@ exports.getAllMovies=async(req,res)=>
     }
     ////implimenting pagination
      const page = req.query.page || 1
-     const limit = req.query.limit || 5
+     const limit = req.query.limit || 10
      const skip = (page-1)*limit
      query = query.skip(skip).limit(limit)
 
